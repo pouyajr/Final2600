@@ -1,3 +1,4 @@
+//User Schema to store in MongoDB
 const mongoose = require('mongoose'); 
 
 const UserSchema = new mongoose.Schema({

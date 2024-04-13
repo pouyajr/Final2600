@@ -1,3 +1,4 @@
+//LOG file Schema to store in MongoDB
 const mongoose = require('mongoose'); 
 
 const DB_Log_schema = new mongoose.Schema({

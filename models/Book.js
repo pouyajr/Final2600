@@ -1,3 +1,4 @@
+//Book Schema to store in MongoDB
 const mongoose = require('mongoose'); 
 
 const BookSchema = new mongoose.Schema({
