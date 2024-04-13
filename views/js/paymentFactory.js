@@ -1,4 +1,4 @@
-//Factory Design Pattern
+//Factory Design Pattern that will be show the output in the terminal
 class PaymentFactory {
     static createPayment(type) {
       switch (type) {
