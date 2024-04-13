@@ -38,6 +38,11 @@ Welcome to the Pouya's Bookstore project. This application provides a platform f
 - `server/`: Server configuration, utility functions, middleware, and logs.
 - `views/`: Front-end HTML written in EJS, CSS, and JavaScript files.
 
+
+## Admin View
+To enter as an admin and add books for the users you can find the credentials of admin in the config file in the server directory folder
+
+
 ## Technologies Used
 
 - **Node.js** and **Express.js**: For backend development.
