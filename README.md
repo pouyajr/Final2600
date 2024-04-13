@@ -1,13 +1,13 @@
 
-# Bookstore Project
+# Pouya's Bookstore Project 
 
 ## Introduction
-Welcome to the Bookstore project. This application provides a platform for users to browse and purchase books online, offering a wide range of titles and genres.
+Welcome to the Pouya's Bookstore project. This application provides a platform for users to browse and purchase books online, offering a wide range of titles and genres.
 
 ## Features
-- **User Accounts**: Separate roles for administrator, registered users, and guests with tailored functionalities.
-- **Catalog Management**: Admins can add books to the catalog.
-- **Search and Filter**: Users can choose books and purchase them through the website.
+- **User Accounts**: Separate roles for administrator, registered users, and guests with tailored and different functionalities.
+- **Catalog Management**: Admins can add books to the catalog and view orders of customers.
+- **Search and Filter**: Users can choose books and purchase them through the website through a variety of options.
 - **Order Processing**: Registered users can place orders and track their status.
 
 ## Installation
@@ -44,6 +44,22 @@ Welcome to the Bookstore project. This application provides a platform for users
 - **MongoDB**: As the database for storing book and user data.
 - **Bootstrap**: For front-end development and design.
 - **jQuery**: Used to simplify HTML DOM tree traversal and manipulation, such as adding books as an admin.
+
+## Requirements of Project 
+
+All the below requirements that were mentiond in the project pdf file has been used
+
+- **GUI Design Patterns**:  such as navigation bar, grid layout, card, responsive design, slider and modal window
+- **Programming Design Patterns** : such as module, singleton and factory method that are mentiond in the comments 
+- **MVC**: Used appropriate modules for each directory
+- **AAA** : user, admin and guest view for the clients and the admin. In addition, the project can connect to either local or remote database and can see the log file (accountability) in MongoDB
+- **Web APIs** : both client-side and server-side restful apis are used in this project and are commented in the files
+- **MongoDB** : connection to both local and remote database and also the implementation of CRUD operations which are commented
+- **Git VCS** : all the contributions are for one person (Mohammad Pouya Jafari) and all the notes and comments are either written in the commits or in the README file
+
+## Contributers
+
+- MohammadPouyaJafari
 
 ## Contributing
 
