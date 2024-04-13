@@ -127,6 +127,7 @@ router.delete('/cart', async (req, res, next) => {
 });
 
 //Create Operation
+// Contains the file from factory pattern named paymentProcessor
 router.post('/order', async (req, res, next) => {
 	const userId = req.session.userId;
 	if (!userId) {
@@ -176,7 +177,7 @@ router.get('/orders', async (req, res, next) => {
 	return res.render('userOrder', { orders })
 })
 //Read Operation
-//Server-Side Restful APIs
+//Server-Side Restful APIs that connects to an external server to show the temperature of the Canada
 router.get('/weather', async (req, res, next) => {
 	const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=canada`;
 	const options = {

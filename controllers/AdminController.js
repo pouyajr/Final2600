@@ -1,4 +1,6 @@
 //Module Design Pattern
+//AdminController that will be used for the administration usage 
+//Contains CRUD operation 
 const express = require('express');
 const router = express.Router();
 const config = require('../server/config/config');
