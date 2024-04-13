@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #9dc9f5;
+        padding-top: 20px;
+      }
+      .card {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-primary"
+      style="position: sticky"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="#">Pouya Bookstore</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="/user/books"
+                ><i class="fas fa-shopping-cart"></i> Books</a
+              >
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="/user/cart"
+                ><i class="fas fa-book"></i> Cart</a
+              >
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="/user/orders"
+                ><i class="fas fa-clipboard-list"></i> Orders</a
+              >
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="/user/signout"
+                ><i class="fas fa-sign-out-alt"></i> Sign Out</a
+              >
+            </li>
+			<div class="navbar-text ms-auto ml-4" style="font-weight: bold;" id="weatherLocation">
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h1 class="text-center mb-4">Shopping Cart</h1>
+      <div class="row">
+        <% cart.forEach(book => { %>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= book.Name %></h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Price: <%= book.price %>$
+              </h6>
+              <p class="card-text">Author: <%= book.Author %></p>
+              <p class="card-text">Description: <%= book.description %></p>
+              <button
+                class="btn btn-danger deleteBtn"
+                data-book-id="<%= book._id %>"
+              >
+                Remove from Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+      <div class="text-center mt-4">
+        <select id="paymentMethod" class="form-select mb-3" aria-label="Payment Method">
+          <option selected>Select Payment Method</option>
+          <option value="creditCard">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="stripe">Stripe</option>
+        </select>
+        <button id="placeOrderBtn" class="btn btn-primary">Place Order</button>
+      </div>      
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      const placeOrder = async () => {
+        const userId = localStorage.getItem("userId");
+        const paymentMethod = document.getElementById("paymentMethod").value;
+        if (!userId) {
+          alert("User not logged in!");
+          return;
+        }
+
+        const confirmed = confirm("Are you sure you want to place the order?");
+        if (!confirmed) {
+          return;
+        }
+
+        fetch("http://localhost:8080/user/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            paymentType: paymentMethod
+          }),
+        })
+          .then(function (response) {
+            if (response.ok) {
+              alert("Order placed successfully!");
+              window.location.reload();
+            } else {
+              alert("Failed to place order. Please try again later.");
+            }
+          })
+          .catch(function (error) {
+            console.error("Error:", error);
+          });
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        const userId = localStorage.getItem("userId");
+        const placeOrderBtn = document.getElementById("placeOrderBtn");
+        placeOrderBtn.addEventListener("click", placeOrder);
+        const removeFromCart = async (bookId, userId) => {
+          fetch("http://localhost:8080/user/cart", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              bookId: bookId,
+              userId: userId,
+            }),
+          })
+            .then(function (response) {
+              if (response.ok) {
+                alert("Book deleted from cart successfully!");
+                window.location.reload();
+              } else {
+                alert(
+                  "Failed to remove book from cart. Please try again later."
+                );
+              }
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        };
+        var deleteButtons = document.querySelectorAll(".deleteBtn");
+
+        deleteButtons.forEach(function (deleteButton) {
+          deleteButton.addEventListener("click", function () {
+            var bookId = this.getAttribute("data-book-id");
+            console.log("Book ID to remove:", bookId);
+            removeFromCart(bookId, userId);
+          });
+        });
+      });
+    </script>
+	<script>
+        function fetchWeatherAndLocation() {
+            fetch('/user/weather/')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('weatherLocation').innerHTML = `<i class="fas fa-thermometer-half"></i> ${data.temp}°C, ${data.country}`;
+					console.log(data); 
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchWeatherAndLocation);
+    </script>
+  </body>
+</html>
