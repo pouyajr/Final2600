@@ -1,3 +1,4 @@
+// To see the log request each time is happening or not
 const config = require('../config/config')
 const Db_Log = require('../../models/DB_Log'); 
 const path = require('path')

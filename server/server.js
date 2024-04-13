@@ -1,3 +1,4 @@
+// The complete code of connecting to server(Node.js)
 const express = require('express'); 
 const path = require('path')
 const app = express(); 

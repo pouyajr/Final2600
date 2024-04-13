@@ -1,3 +1,4 @@
+//Config file for the initialization of the DATABASE MongoDb
 const config = {};
 config.PORT = 8080;
 config.LOCAL_DB_URL = 'mongodb://127.0.0.1:27017/bookstore'

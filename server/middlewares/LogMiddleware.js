@@ -1,5 +1,5 @@
 //module design pattern
-
+//MiddleWare used for logs of clients and users
 const Logging = require('../Utility/Logging'); 
 const logging = new Logging; 
 

@@ -1,3 +1,4 @@
+//File to find if the database is connected or not to either local or remote MongoDb database
 const mongoose = require('mongoose'); 
 
 // singleton desing pattern for database 
